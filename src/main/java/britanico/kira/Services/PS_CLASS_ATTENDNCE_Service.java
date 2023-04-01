@@ -18,13 +18,13 @@ import java.util.function.Function;
 @Service
 public class PS_CLASS_ATTENDNCE_Service implements PS_CLASS_ATTENDNCE_DAO {
 
-    @Autowired
     @Qualifier("PS_CLASS_ATTENDNCE_DAO")
+    @Autowired
     public PS_CLASS_ATTENDNCE_DAO classAttendnceDao;
 
     @Override
-    public List<PS_CLASS_ATTENDNCE> obtenerClases(String cod_alumno) {
-        return classAttendnceDao.obtenerClases(cod_alumno);
+    public List<PS_CLASS_ATTENDNCE> obtenerClases(String cod_alumno, String strm, int clase) {
+        return classAttendnceDao.obtenerClases(cod_alumno, strm, clase);
     }
 
     @Override
