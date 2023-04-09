@@ -6,16 +6,9 @@ import java.util.Date;
 
 @Entity
 @Table(name = "PS_CLASS_ATTENDNCE")
-public class PS_CLASS_ATTENDNCE implements Serializable {
-    public String EMPLID;
-    public String ACAD_CAREER;
-    public String INSTITUTION;
-    public String STRM;
-    public int CLASS_NBR;
-    @Id
-    public Date CLASS_ATTEND_DT;
-    public Date ATTEND_TO_TIME;
-    public int ATTEND_TMPLT_NBR;
+public class PS_CLASS_ATTENDNCE {
+    @EmbeddedId
+    public PS_CLASS_ATTENDNCE_ID psClassAttendnceId;
     public String CLASS_ATTEND_TYPE;
     public String ATTEND_PRESENT;
     public String ATTEND_TARDY;

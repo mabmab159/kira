@@ -2,6 +2,7 @@ package britanico.kira.Services;
 
 import britanico.kira.DAO.PS_CLASS_ATTENDNCE_DAO;
 import britanico.kira.Models.PS_CLASS_ATTENDNCE;
+import britanico.kira.Models.PS_CLASS_ATTENDNCE_ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Example;
@@ -18,18 +19,12 @@ import java.util.function.Function;
 @Service
 public class PS_CLASS_ATTENDNCE_Service implements PS_CLASS_ATTENDNCE_DAO {
 
-    @Qualifier("PS_CLASS_ATTENDNCE_DAO")
     @Autowired
     public PS_CLASS_ATTENDNCE_DAO classAttendnceDao;
 
     @Override
-    public List<PS_CLASS_ATTENDNCE> obtenerClases(String cod_alumno, String strm, int clase) {
-        return classAttendnceDao.obtenerClases(cod_alumno, strm, clase);
-    }
-
-    @Override
     public List<PS_CLASS_ATTENDNCE> findAll() {
-        return null;
+        return classAttendnceDao.findAll();
     }
 
     @Override
@@ -43,7 +38,7 @@ public class PS_CLASS_ATTENDNCE_Service implements PS_CLASS_ATTENDNCE_DAO {
     }
 
     @Override
-    public List<PS_CLASS_ATTENDNCE> findAllById(Iterable<String> strings) {
+    public List<PS_CLASS_ATTENDNCE> findAllById(Iterable<PS_CLASS_ATTENDNCE_ID> psClassAttendnceIds) {
         return null;
     }
 
@@ -53,7 +48,7 @@ public class PS_CLASS_ATTENDNCE_Service implements PS_CLASS_ATTENDNCE_DAO {
     }
 
     @Override
-    public void deleteById(String s) {
+    public void deleteById(PS_CLASS_ATTENDNCE_ID psClassAttendnceId) {
 
     }
 
@@ -63,7 +58,7 @@ public class PS_CLASS_ATTENDNCE_Service implements PS_CLASS_ATTENDNCE_DAO {
     }
 
     @Override
-    public void deleteAllById(Iterable<? extends String> strings) {
+    public void deleteAllById(Iterable<? extends PS_CLASS_ATTENDNCE_ID> psClassAttendnceIds) {
 
     }
 
@@ -88,12 +83,12 @@ public class PS_CLASS_ATTENDNCE_Service implements PS_CLASS_ATTENDNCE_DAO {
     }
 
     @Override
-    public Optional<PS_CLASS_ATTENDNCE> findById(String s) {
+    public Optional<PS_CLASS_ATTENDNCE> findById(PS_CLASS_ATTENDNCE_ID psClassAttendnceId) {
         return Optional.empty();
     }
 
     @Override
-    public boolean existsById(String s) {
+    public boolean existsById(PS_CLASS_ATTENDNCE_ID psClassAttendnceId) {
         return false;
     }
 
@@ -118,7 +113,7 @@ public class PS_CLASS_ATTENDNCE_Service implements PS_CLASS_ATTENDNCE_DAO {
     }
 
     @Override
-    public void deleteAllByIdInBatch(Iterable<String> strings) {
+    public void deleteAllByIdInBatch(Iterable<PS_CLASS_ATTENDNCE_ID> psClassAttendnceIds) {
 
     }
 
@@ -128,17 +123,17 @@ public class PS_CLASS_ATTENDNCE_Service implements PS_CLASS_ATTENDNCE_DAO {
     }
 
     @Override
-    public PS_CLASS_ATTENDNCE getOne(String s) {
+    public PS_CLASS_ATTENDNCE getOne(PS_CLASS_ATTENDNCE_ID psClassAttendnceId) {
         return null;
     }
 
     @Override
-    public PS_CLASS_ATTENDNCE getById(String s) {
+    public PS_CLASS_ATTENDNCE getById(PS_CLASS_ATTENDNCE_ID psClassAttendnceId) {
         return null;
     }
 
     @Override
-    public PS_CLASS_ATTENDNCE getReferenceById(String s) {
+    public PS_CLASS_ATTENDNCE getReferenceById(PS_CLASS_ATTENDNCE_ID psClassAttendnceId) {
         return null;
     }
 
@@ -175,5 +170,10 @@ public class PS_CLASS_ATTENDNCE_Service implements PS_CLASS_ATTENDNCE_DAO {
     @Override
     public <S extends PS_CLASS_ATTENDNCE, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return null;
+    }
+
+    @Override
+    public List<PS_CLASS_ATTENDNCE> obtenerClases(String cod_alumno, String strm, int clase) {
+        return classAttendnceDao.obtenerClases(cod_alumno, strm, clase);
     }
 }

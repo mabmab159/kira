@@ -1,13 +1,18 @@
 package britanico.kira.Models_Aux;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Fechas {
-    public int min_mes;
-    public int max_mes;
+    public int anio;
+    public Meses meses;
+    public List<Asistencias> asistencias;
 }
