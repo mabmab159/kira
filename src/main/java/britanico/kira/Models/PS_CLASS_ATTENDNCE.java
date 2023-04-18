@@ -1,7 +1,6 @@
 package britanico.kira.Models;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 
 @Entity

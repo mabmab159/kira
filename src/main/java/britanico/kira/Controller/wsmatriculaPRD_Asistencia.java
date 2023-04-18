@@ -1,9 +1,9 @@
 package britanico.kira.Controller;
 
-import britanico.kira.Models.PS_CLASS_ATTENDNCE;
-import britanico.kira.Models.PS_CLASS_ATTENDNCE_ID;
+import britanico.kira.Models.*;
 import britanico.kira.Models_Aux.*;
 import britanico.kira.Services.PS_CLASS_ATTENDNCE_Service;
+import britanico.kira.Services.PS_CLASS_TBL_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,26 +20,29 @@ import java.util.List;
 @RequestMapping("/wsmatriculaPRD")
 public class wsmatriculaPRD_Asistencia {
 
-    @Autowired public PS_CLASS_ATTENDNCE_Service classAttendnceService;
+    @Autowired
+    public PS_CLASS_ATTENDNCE_Service psClassAttendnceService;
+
+    @Autowired
+    public PS_CLASS_TBL_Service psClassTblService;
 
     @GetMapping
-    public ResponseEntity<List<PS_CLASS_ATTENDNCE>> getAssistanceClass(String cod_alumno, String strm, int clase) {
-        List<PS_CLASS_ATTENDNCE> listado = classAttendnceService.obtenerClases(cod_alumno, strm, clase);
-        //List<PS_CLASS_ATTENDNCE> listado = classAttendnceService.findAll();
+    public ResponseEntity<PS_CLASS_TBL> getAssistanceClass(String cod_alumno, String strm, int clase) {
+        //List<PS_CLASS_ATTENDNCE> listado = psClassAttendnceService.obtenerClases(cod_alumno, strm, clase);
+        PS_CLASS_TBL psClassTbls = psClassTblService.getPsClassTbl(strm, clase);
         /*List<Asistencias> asistencias = new ArrayList<>();
         Detalle_Asistencias salida = new Detalle_Asistencias();
-        listado.stream().forEach(p -> System.out.println(p));
         for (PS_CLASS_ATTENDNCE psClassAttendnce : listado) {
             Asistencias asistenciasAux = new Asistencias();
-            asistenciasAux.setMes(new SimpleDateFormat("MM").format(psClassAttendnce.CLASS_ATTEND_DT));
-            asistenciasAux.setDia(new SimpleDateFormat("dd").format(psClassAttendnce.CLASS_ATTEND_DT));
-            asistenciasAux.setAnio(new SimpleDateFormat("yyyy").format(psClassAttendnce.CLASS_ATTEND_DT));
-            asistenciasAux.setFecha(new SimpleDateFormat("yyyy-MM-dd").format(psClassAttendnce.CLASS_ATTEND_DT));
+            asistenciasAux.setMes(new SimpleDateFormat("MM").format(psClassAttendnce.psClassAttendnceId.CLASS_ATTEND_DT));
+            asistenciasAux.setDia(new SimpleDateFormat("dd").format(psClassAttendnce.psClassAttendnceId.CLASS_ATTEND_DT));
+            asistenciasAux.setAnio(new SimpleDateFormat("yyyy").format(psClassAttendnce.psClassAttendnceId.CLASS_ATTEND_DT));
+            asistenciasAux.setFecha(new SimpleDateFormat("yyyy-MM-dd").format(psClassAttendnce.psClassAttendnceId.CLASS_ATTEND_DT));
             asistenciasAux.setPresente(psClassAttendnce.ATTEND_PRESENT);
             asistenciasAux.setTarde(psClassAttendnce.ATTEND_TARDY);
             asistenciasAux.setMinutos_contados(String.valueOf(psClassAttendnce.CONTACT_MINUTES));
             asistenciasAux.setReunion(true);
-            asistenciasAux.setIcon(psClassAttendnce.CLASS_ATTEND_DT.before(new Date()) ? 2 : 1);
+            asistenciasAux.setIcon(psClassAttendnce.psClassAttendnceId.CLASS_ATTEND_DT.before(new Date()) ? 2 : 1);
             asistencias.add(asistenciasAux);
         }
         Fechas fechas = new Fechas();
@@ -61,7 +64,13 @@ public class wsmatriculaPRD_Asistencia {
         clase1.setTardanzas((int) asistencias.stream().filter(p -> p.tarde.equals("Y")).count());
         //clase1.setObservacion();
         //clase1.setPina();
-        detalleAsistencias.setClase(clase1);*/
-        return new ResponseEntity<>(listado, HttpStatus.OK);
+        detalleAsistencias.setClase(clase1);
+        salida.setClase(clase1);
+        salida.setCode(clase);
+        salida.setFechas(fechasList);
+        salida.setNum_anios(1);*/
+        return new ResponseEntity<>(psClassTbls, HttpStatus.OK);
     }
+
+
 }

@@ -1,12 +1,6 @@
 package britanico.kira.Models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import javax.persistence.Embeddable;
-import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 

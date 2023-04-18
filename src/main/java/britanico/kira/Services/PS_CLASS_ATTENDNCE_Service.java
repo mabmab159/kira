@@ -1,10 +1,8 @@
 package britanico.kira.Services;
 
 import britanico.kira.DAO.PS_CLASS_ATTENDNCE_DAO;
-import britanico.kira.Models.PS_CLASS_ATTENDNCE;
-import britanico.kira.Models.PS_CLASS_ATTENDNCE_ID;
+import britanico.kira.Models.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,20 +18,20 @@ import java.util.function.Function;
 public class PS_CLASS_ATTENDNCE_Service implements PS_CLASS_ATTENDNCE_DAO {
 
     @Autowired
-    public PS_CLASS_ATTENDNCE_DAO classAttendnceDao;
+    public PS_CLASS_ATTENDNCE_DAO psClassAttendnceDao;
 
     @Override
-    public List<PS_CLASS_ATTENDNCE> findAll() {
-        return classAttendnceDao.findAll();
+    public List<PS_CLASS_ATTENDNCE> obtenerClases(String cod_alumno, String strm, int clase) {
+        return psClassAttendnceDao.obtenerClases(cod_alumno, strm, clase);
     }
 
     @Override
-    public List<PS_CLASS_ATTENDNCE> findAll(Sort sort) {
+    public List<PS_CLASS_ATTENDNCE> findAll() {
         return null;
     }
 
     @Override
-    public Page<PS_CLASS_ATTENDNCE> findAll(Pageable pageable) {
+    public List<PS_CLASS_ATTENDNCE> findAll(Sort sort) {
         return null;
     }
 
@@ -43,53 +41,8 @@ public class PS_CLASS_ATTENDNCE_Service implements PS_CLASS_ATTENDNCE_DAO {
     }
 
     @Override
-    public long count() {
-        return 0;
-    }
-
-    @Override
-    public void deleteById(PS_CLASS_ATTENDNCE_ID psClassAttendnceId) {
-
-    }
-
-    @Override
-    public void delete(PS_CLASS_ATTENDNCE entity) {
-
-    }
-
-    @Override
-    public void deleteAllById(Iterable<? extends PS_CLASS_ATTENDNCE_ID> psClassAttendnceIds) {
-
-    }
-
-    @Override
-    public void deleteAll(Iterable<? extends PS_CLASS_ATTENDNCE> entities) {
-
-    }
-
-    @Override
-    public void deleteAll() {
-
-    }
-
-    @Override
-    public <S extends PS_CLASS_ATTENDNCE> S save(S entity) {
-        return null;
-    }
-
-    @Override
     public <S extends PS_CLASS_ATTENDNCE> List<S> saveAll(Iterable<S> entities) {
         return null;
-    }
-
-    @Override
-    public Optional<PS_CLASS_ATTENDNCE> findById(PS_CLASS_ATTENDNCE_ID psClassAttendnceId) {
-        return Optional.empty();
-    }
-
-    @Override
-    public boolean existsById(PS_CLASS_ATTENDNCE_ID psClassAttendnceId) {
-        return false;
     }
 
     @Override
@@ -138,11 +91,6 @@ public class PS_CLASS_ATTENDNCE_Service implements PS_CLASS_ATTENDNCE_DAO {
     }
 
     @Override
-    public <S extends PS_CLASS_ATTENDNCE> Optional<S> findOne(Example<S> example) {
-        return Optional.empty();
-    }
-
-    @Override
     public <S extends PS_CLASS_ATTENDNCE> List<S> findAll(Example<S> example) {
         return null;
     }
@@ -150,6 +98,61 @@ public class PS_CLASS_ATTENDNCE_Service implements PS_CLASS_ATTENDNCE_DAO {
     @Override
     public <S extends PS_CLASS_ATTENDNCE> List<S> findAll(Example<S> example, Sort sort) {
         return null;
+    }
+
+    @Override
+    public Page<PS_CLASS_ATTENDNCE> findAll(Pageable pageable) {
+        return null;
+    }
+
+    @Override
+    public <S extends PS_CLASS_ATTENDNCE> S save(S entity) {
+        return null;
+    }
+
+    @Override
+    public Optional<PS_CLASS_ATTENDNCE> findById(PS_CLASS_ATTENDNCE_ID psClassAttendnceId) {
+        return Optional.empty();
+    }
+
+    @Override
+    public boolean existsById(PS_CLASS_ATTENDNCE_ID psClassAttendnceId) {
+        return false;
+    }
+
+    @Override
+    public long count() {
+        return 0;
+    }
+
+    @Override
+    public void deleteById(PS_CLASS_ATTENDNCE_ID psClassAttendnceId) {
+
+    }
+
+    @Override
+    public void delete(PS_CLASS_ATTENDNCE entity) {
+
+    }
+
+    @Override
+    public void deleteAllById(Iterable<? extends PS_CLASS_ATTENDNCE_ID> psClassAttendnceIds) {
+
+    }
+
+    @Override
+    public void deleteAll(Iterable<? extends PS_CLASS_ATTENDNCE> entities) {
+
+    }
+
+    @Override
+    public void deleteAll() {
+
+    }
+
+    @Override
+    public <S extends PS_CLASS_ATTENDNCE> Optional<S> findOne(Example<S> example) {
+        return Optional.empty();
     }
 
     @Override
@@ -170,10 +173,5 @@ public class PS_CLASS_ATTENDNCE_Service implements PS_CLASS_ATTENDNCE_DAO {
     @Override
     public <S extends PS_CLASS_ATTENDNCE, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return null;
-    }
-
-    @Override
-    public List<PS_CLASS_ATTENDNCE> obtenerClases(String cod_alumno, String strm, int clase) {
-        return classAttendnceDao.obtenerClases(cod_alumno, strm, clase);
     }
 }
