@@ -34,8 +34,6 @@ public class wsmatriculaPRD_Asistencia {
     public ResponseEntity<Detalle_Asistencias> getAssistanceClass(@PathVariable String cod_alumno, @PathVariable String strm,
                                                                   @PathVariable int clase) {
         Detalle_Asistencias detalleAsistencias = new Detalle_Asistencias();
-        detalleAsistencias.setCode(0);
-        detalleAsistencias.setNum_anios(1);
         detalleAsistencias.setFechas(Fechas.convertirFecha(psClassAttendnceService.obtenerClases(cod_alumno, strm,
                 clase)));
         detalleAsistencias.setClase(Clase.convertirClase(psClassTblService.getPsClassTbl(strm, clase),

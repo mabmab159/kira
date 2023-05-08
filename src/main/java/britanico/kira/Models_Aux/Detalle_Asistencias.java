@@ -9,8 +9,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Detalle_Asistencias {
-    int code;
-    int num_anios;
+    int code = 0;
+    int num_anios = 1;
     List<Fechas> fechas;
     Clase clase;
 }
