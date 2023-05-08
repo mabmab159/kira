@@ -19,4 +19,11 @@ public class newservicio {
     public ResponseEntity<String> getEstado(@PathVariable("cod_alumno") String cod_alumno) {
         return new ResponseEntity<>(psStdntEnrlService.getConteo(cod_alumno), HttpStatus.OK);
     }
+
+    @GetMapping("/{institution}/{acad_career}/{emplid}")
+    public ResponseEntity<String> getEstado(@PathVariable("institution") String institution,
+                                            @PathVariable("acad_career") String acad_career,
+                                            @PathVariable("emplid") String emplid) {
+        return new ResponseEntity<>(psStdntEnrlService.validarRepitencia(institution, acad_career, emplid), HttpStatus.OK);
+    }
 }
