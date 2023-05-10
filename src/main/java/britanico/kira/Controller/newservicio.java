@@ -1,11 +1,14 @@
 package britanico.kira.Controller;
 
+import britanico.kira.Models_Aux.prueba;
 import britanico.kira.Services.PS_LVF_PARAM_GENER_Service;
 import britanico.kira.Services.PS_STDNT_ENRL_Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/newservicio")
@@ -30,12 +33,13 @@ public class newservicio {
     }
 
     @GetMapping("/{institution}/{acad_career}/{emplid}")
-    public ResponseEntity<String> getEstado(@PathVariable("institution") String institution,
+    public ResponseEntity<Object[]> getEstado(@PathVariable("institution") String institution,
                                             @PathVariable("acad_career") String acad_career,
                                             @PathVariable("emplid") String emplid) {
-        //return new ResponseEntity<>(psStdntEnrlService.validarRepitencia(institution, acad_career, emplid),
-        // HttpStatus.OK);
+        /*return new ResponseEntity<>(psStdntEnrlService.validarRepitencia(institution, acad_career, emplid),
+         HttpStatus.OK);
         return new ResponseEntity<>(psLvfParamGenerService.lastPlacement(emplid,
-                psLvfParamGenerService.months()), HttpStatus.OK);
+                psLvfParamGenerService.months()), HttpStatus.OK);*/
+        return new ResponseEntity<>(psLvfParamGenerService.lastCourseNoFDA("ACPBR", "351123", "6"), HttpStatus.OK);
     }
 }

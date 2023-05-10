@@ -3,6 +3,7 @@ package britanico.kira.Services;
 import britanico.kira.DAO.PS_LVF_PARAM_GENER_DAO;
 import britanico.kira.Models.PS_LVF_PARAM_GENER;
 import britanico.kira.Models.PS_LVF_PARAM_GENER_ID;
+import britanico.kira.Models_Aux.prueba;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.SqlResultSetMapping;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -34,6 +36,11 @@ public class PS_LVF_PARAM_GENER_Service implements PS_LVF_PARAM_GENER_DAO {
     @Override
     public String lastPlacement(String emplid, String months) {
         return psLvfParamGenerDao.lastPlacement(emplid, psLvfParamGenerDao.months());
+    }
+
+    @Override
+    public Object[] lastCourseNoFDA(String institution, String emplid, String meses_discontinuidad) {
+        return psLvfParamGenerDao.lastCourseNoFDA(institution, emplid, meses_discontinuidad);
     }
 
     @Override
