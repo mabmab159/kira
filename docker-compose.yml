@@ -1,0 +1,10 @@
+version: '2'
+services:
+  app:
+    container_name: app
+    image: app:1.0.1
+    expose:
+      - "8080"
+      - "80"
+    ports:
+      - "12345:8080"
