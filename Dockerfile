@@ -1,5 +1,7 @@
 #Descargando la imagen
 FROM openjdk:11
+
+EXPOSE 80
 #Copiando el proyecto
 COPY . /usr/src/myapp
 #Instalando maven
@@ -16,8 +18,7 @@ ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 COPY ./java.security /usr/local/openjdk-11/conf/security/
 WORKDIR /usr/src/myapp
 #Instalar, empaquetar y ejecutar
-CMD ["sh","/usr/share/maven/bin/mvn","install"]
-CMD ["sh","/usr/share/maven/bin/mvn","package"]
+RUN sh /usr/share/maven/bin/mvn install
+RUN sh /usr/share/maven/bin/mvn package
+RUN chmod 755 /usr/src/myapp/target/kira-0.0.1-SNAPSHOT.jar
 CMD ["java","-jar","/usr/src/myapp/target/kira-0.0.1-SNAPSHOT.jar"]
-
-EXPOSE 80
