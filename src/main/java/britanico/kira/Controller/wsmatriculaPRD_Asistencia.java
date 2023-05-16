@@ -1,5 +1,6 @@
 package britanico.kira.Controller;
 
+import britanico.kira.Models.PS_CLASS_ATTENDNCE;
 import britanico.kira.Models_Aux.*;
 import britanico.kira.Services.PS_CLASS_ATTENDNCE_Service;
 import britanico.kira.Services.PS_CLASS_ATTRIBUTE_Service;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/wsmatriculaPRD")
@@ -41,6 +45,4 @@ public class wsmatriculaPRD_Asistencia {
                 psClassAttributeService.obtenerClase(strm, clase)));
         return new ResponseEntity<>(detalleAsistencias, HttpStatus.OK);
     }
-
-
 }

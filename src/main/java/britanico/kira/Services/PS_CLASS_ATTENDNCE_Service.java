@@ -27,7 +27,7 @@ public class PS_CLASS_ATTENDNCE_Service implements PS_CLASS_ATTENDNCE_DAO {
 
     @Override
     public List<PS_CLASS_ATTENDNCE> findAll() {
-        return null;
+        return psClassAttendnceDao.findAll();
     }
 
     @Override

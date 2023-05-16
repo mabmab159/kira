@@ -31,6 +31,11 @@ public class PS_STDNT_ENRL_Service implements PS_STDNT_ENRL_DAO {
     }
 
     @Override
+    public List<String> initialCourses(String institution, String acad_career, String emplid) {
+        return psStdntEnrlDao.initialCourses(institution, acad_career, emplid);
+    }
+
+    @Override
     public List<PS_STDNT_ENRL> findAll() {
         return null;
     }

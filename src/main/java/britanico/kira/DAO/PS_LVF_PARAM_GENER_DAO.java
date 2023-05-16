@@ -2,11 +2,12 @@ package britanico.kira.DAO;
 
 import britanico.kira.Models.PS_LVF_PARAM_GENER;
 import britanico.kira.Models.PS_LVF_PARAM_GENER_ID;
-import britanico.kira.Models_Aux.prueba;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface PS_LVF_PARAM_GENER_DAO extends JpaRepository<PS_LVF_PARAM_GENER, PS_LVF_PARAM_GENER_ID> {
@@ -27,7 +28,9 @@ public interface PS_LVF_PARAM_GENER_DAO extends JpaRepository<PS_LVF_PARAM_GENER
             "(:months AS INT) , EX.TEST_DT)+1) <= GETDATE() THEN 'N' ELSE 'Y' END = 'Y'", nativeQuery = true)
     public String lastPlacement(@Param("emplid") String emplid, @Param("months") String months);
 
-    @Query(value = "SELECT X.FEC_FIN_CL ,YEAR(X.FEC_FIN_CL) FROM " +
+    @Query(value = "SELECT (CONVERT(CHAR(10), X.LAST_ENRL_DT_STMP, 121)) AS SALIDA1, X.FEC_FIN_CL, YEAR(X.FEC_FIN_CL)" +
+            " AS YEAR, MONTH(X.FEC_FIN_CL) AS MES, DATEADD(MONTH, ((YEAR(X.END_DT) - 1900) * 12) + MONTH(X.END_DT) + " +
+            "CAST(:meses_discontinuidad AS INT) +1, -1) FROM " +
             "(SELECT " +
             "IC.EMPLID, IC" +
             ".ACAD_CAREER, IC" +
@@ -53,6 +56,6 @@ public interface PS_LVF_PARAM_GENER_DAO extends JpaRepository<PS_LVF_PARAM_GENER
             "GB.DESCR <> 'FAIL DUE TO ABSENCES' AND CASE WHEN (DATEADD(MONTH, ((YEAR(CS.END_DT) - 1900) * 12) + MONTH" +
             "(CS.END_DT) + CAST(:meses_discontinuidad AS INT) +1, -1))> GETDATE() THEN 1 ELSE 0 END=1) X WHERE X.NUM " +
             "= 1", nativeQuery = true)
-    public Object[] lastCourseNoFDA(@Param("institution") String institution, @Param("emplid") String emplid,
+    public List<Object> lastCourseNoFDA(@Param("institution") String institution, @Param("emplid") String emplid,
                                         @Param("meses_discontinuidad") String meses_discontinuidad);
 }
