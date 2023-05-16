@@ -1,6 +1,5 @@
 package britanico.kira.Controller;
 
-import britanico.kira.Models.PS_CLASS_ATTENDNCE;
 import britanico.kira.Models_Aux.*;
 import britanico.kira.Services.PS_CLASS_ATTENDNCE_Service;
 import britanico.kira.Services.PS_CLASS_ATTRIBUTE_Service;
@@ -12,9 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/wsmatriculaPRD")
@@ -35,9 +31,9 @@ public class wsmatriculaPRD_Asistencia {
     }
 
     @GetMapping("{cod_alumno}/{strm}/{clase}")
-    public ResponseEntity<Detalle_Asistencias> getAssistanceClass(@PathVariable String cod_alumno, @PathVariable String strm,
-                                                                  @PathVariable int clase) {
-        Detalle_Asistencias detalleAsistencias = new Detalle_Asistencias();
+    public ResponseEntity<detalleAsistencias> getAssistanceClass(@PathVariable String cod_alumno, @PathVariable String strm,
+                                                                 @PathVariable int clase) {
+        detalleAsistencias detalleAsistencias = new detalleAsistencias();
         detalleAsistencias.setFechas(Fechas.convertirFecha(psClassAttendnceService.obtenerClases(cod_alumno, strm,
                 clase)));
         detalleAsistencias.setClase(Clase.convertirClase(psClassTblService.getPsClassTbl(strm, clase),

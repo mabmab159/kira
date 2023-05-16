@@ -8,7 +8,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Detalle_Asistencias {
+public class detalleAsistencias {
     int code = 0;
     int num_anios = 1;
     List<Fechas> fechas;

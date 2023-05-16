@@ -56,7 +56,7 @@ public class PS_STDNT_ENRL {
     public String OPRID;
     public String TSCRPT_NOTE_ID;
     public String TSCRPT_NOTE_EXISTS;
-    public String NOTIFY_STDNT_CHING;
+    public String NOTIFY_STDNT_CHNG;
     public String REPEAT_CANDIDATE;
     public String VALID_ATTEMPT;
     public String GRADE_CATEGORY;

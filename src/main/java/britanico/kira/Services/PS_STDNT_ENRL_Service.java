@@ -36,6 +36,11 @@ public class PS_STDNT_ENRL_Service implements PS_STDNT_ENRL_DAO {
     }
 
     @Override
+    public List<PS_STDNT_ENRL> getObtenerClasesAnteriores(String emplid) {
+        return psStdntEnrlDao.getObtenerClasesAnteriores(emplid);
+    }
+
+    @Override
     public List<PS_STDNT_ENRL> findAll() {
         return null;
     }
@@ -181,7 +186,8 @@ public class PS_STDNT_ENRL_Service implements PS_STDNT_ENRL_DAO {
     }
 
     @Override
-    public <S extends PS_STDNT_ENRL, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends PS_STDNT_ENRL, R> R findBy(Example<S> example,
+                                                 Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return null;
     }
 }

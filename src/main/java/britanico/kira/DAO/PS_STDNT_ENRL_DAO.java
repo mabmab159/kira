@@ -37,64 +37,25 @@ public interface PS_STDNT_ENRL_DAO extends JpaRepository<PS_STDNT_ENRL, PS_STDNT
     String validarRepitencia(@Param("institution") String institution, @Param("acad_career") String acad_career,
                              @Param("emplid") String emplid);
 
-    @Query(value = "SELECT A.CRSE_ID FROM PS_LVF_EST_CUR_SGT A, PS_LVF_CON_ALU_TBL B, PS_ACAD_PROG C WHERE A.CRSE_ID <> A.CRSE_ID_EXT" +
-            "   AND A.CRSE_ID = B.CRSE_ID  " +
-            "   AND C.ACAD_PROG = B.ACAD_PROG  " +
-            "   AND C.EFFDT = (  " +
-            " SELECT MAX(X.EFFDT)  " +
-            "  FROM PS_ACAD_PROG X  " +
-            " WHERE X.EMPLID = C.EMPLID  " +
-            "   AND X.ACAD_CAREER = C.ACAD_CAREER  " +
-            "   AND X.STDNT_CAR_NBR = C.STDNT_CAR_NBR  " +
-            "   AND X.EFFDT <= GETDATE() )  " +
-            "   AND C.EFFSEQ = (  " +
-            " SELECT MAX(X.EFFSEQ)  " +
-            "  FROM PS_ACAD_PROG X  " +
-            " WHERE X.EMPLID = C.EMPLID  " +
-            "   AND X.ACAD_CAREER = C.ACAD_CAREER  " +
-            "   AND X.STDNT_CAR_NBR = C.STDNT_CAR_NBR  " +
-            "   AND X.EFFDT = C.EFFDT )  " +
-            "   AND C.PROG_STATUS = 'AC'  " +
-            "   AND SUBSTRING(C.ACAD_PROG,2,4) = (  " +
-            " SELECT MIN(SUBSTRING(X.ACAD_PROG  " +
-            " ,2  " +
-            " ,4))  " +
-            "  FROM PS_ACAD_PROG X  " +
-            " WHERE X.INSTITUTION = C.INSTITUTION  " +
-            "   AND X.ACAD_CAREER = C.ACAD_CAREER  " +
-            "   AND X.EMPLID = C.EMPLID /* AND X.EFFDT = C.EFFDT AND X.EFFSEQ = C.EFFSEQ */  " +
-            "   AND SUBSTRING(X.ACAD_PROG,2,4) IN ('KIDS','ADLT') )  " +
-            "   AND C.INSTITUTION = :institution  " +
-            "   AND C.ACAD_CAREER = :acad_career  " +
-            "   AND C.EMPLID = :emplid  " +
-            "  UNION ALL  " +
-            " SELECT A.CRSE_ID  " +
-            "  FROM PS_LVF_EST_CUR_SGT A  " +
-            "  , PS_LVF_CON_ALU_TBL B  " +
-            "  , PS_ACAD_PROG C  " +
-            " WHERE A.CRSE_ID <> A.CRSE_ID_EXT  " +
-            "   AND A.CRSE_ID = B.CRSE_ID  " +
-            "   AND C.ACAD_PROG = B.ACAD_PROG  " +
-            "   AND C.EFFDT = (  " +
-            " SELECT MAX(X.EFFDT)  " +
-            "  FROM PS_ACAD_PROG X  " +
-            " WHERE X.EMPLID = C.EMPLID  " +
-            "   AND X.ACAD_CAREER = C.ACAD_CAREER  " +
-            "   AND X.STDNT_CAR_NBR = C.STDNT_CAR_NBR  " +
-            "   AND X.EFFDT <= GETDATE() )  " +
-            "   AND C.EFFSEQ = (  " +
-            " SELECT MAX(X.EFFSEQ)  " +
-            "  FROM PS_ACAD_PROG X  " +
-            " WHERE X.EMPLID = C.EMPLID  " +
-            "   AND X.ACAD_CAREER = C.ACAD_CAREER  " +
-            "   AND X.STDNT_CAR_NBR = C.STDNT_CAR_NBR  " +
-            "   AND X.EFFDT = C.EFFDT )  " +
-            "   AND C.PROG_STATUS = 'AC'  " +
-            "   AND SUBSTRING(C.ACAD_PROG,2,4) NOT IN ('KIDS','ADLT')  " +
-            "   AND C.INSTITUTION = :institution  " +
-            "   AND C.ACAD_CAREER = :acad_career  " +
-            "   AND C.EMPLID = :emplid", nativeQuery = true)
-    public List<String> initialCourses(@Param("institution") String institution, @Param("acad_career") String acad_career,
-                             @Param("emplid") String emplid);
+    @Query(value = "SELECT A.CRSE_ID FROM PS_LVF_EST_CUR_SGT A, PS_LVF_CON_ALU_TBL B, PS_ACAD_PROG C WHERE A.CRSE_ID " +
+            "<> A.CRSE_ID_EXT AND A.CRSE_ID = B.CRSE_ID AND C.ACAD_PROG = B.ACAD_PROG AND C.EFFDT = (SELECT MAX(X" +
+            ".EFFDT) FROM PS_ACAD_PROG X WHERE X.EMPLID = C.EMPLID AND X.ACAD_CAREER = C.ACAD_CAREER AND X" +
+            ".STDNT_CAR_NBR = C.STDNT_CAR_NBR AND X.EFFDT <= GETDATE()) AND C.EFFSEQ = (SELECT MAX(X.EFFSEQ) FROM " +
+            "PS_ACAD_PROG X WHERE X.EMPLID = C.EMPLID AND X.ACAD_CAREER = C.ACAD_CAREER AND X.STDNT_CAR_NBR = C" +
+            ".STDNT_CAR_NBR AND X.EFFDT = C.EFFDT) AND C.PROG_STATUS = 'AC' AND SUBSTRING(C.ACAD_PROG,2,4) = (SELECT " +
+            "MIN(SUBSTRING(X.ACAD_PROG, 2, 4)) FROM PS_ACAD_PROG X  WHERE X.INSTITUTION = C.INSTITUTION AND X" +
+            ".ACAD_CAREER = C.ACAD_CAREER AND X.EMPLID = C.EMPLID AND SUBSTRING(X.ACAD_PROG,2,4) IN ('KIDS','ADLT')) " +
+            "AND C.INSTITUTION = :institution AND C.ACAD_CAREER = :acad_career AND C.EMPLID = :emplid UNION ALL " +
+            "SELECT A.CRSE_ID FROM PS_LVF_EST_CUR_SGT A, PS_LVF_CON_ALU_TBL B, PS_ACAD_PROG C WHERE A.CRSE_ID <> A" +
+            ".CRSE_ID_EXT AND A.CRSE_ID = B.CRSE_ID AND C.ACAD_PROG = B.ACAD_PROG AND C.EFFDT = (SELECT MAX(X.EFFDT) " +
+            "FROM PS_ACAD_PROG X WHERE X.EMPLID = C.EMPLID AND X.ACAD_CAREER = C.ACAD_CAREER AND X.STDNT_CAR_NBR = C" +
+            ".STDNT_CAR_NBR AND X.EFFDT <= GETDATE()) AND C.EFFSEQ = (SELECT MAX(X.EFFSEQ) FROM PS_ACAD_PROG X WHERE " +
+            "X.EMPLID = C.EMPLID AND X.ACAD_CAREER = C.ACAD_CAREER AND X.STDNT_CAR_NBR = C.STDNT_CAR_NBR AND X.EFFDT " +
+            "= C.EFFDT) AND C.PROG_STATUS = 'AC' AND SUBSTRING(C.ACAD_PROG,2,4) NOT IN ('KIDS','ADLT') AND C" +
+            ".INSTITUTION = :institution AND C.ACAD_CAREER = :acad_career AND C.EMPLID = :emplid\n", nativeQuery = true)
+    List<String> initialCourses(@Param("institution") String institution, @Param("acad_career") String acad_career,
+                                @Param("emplid") String emplid);
 
+    @Query("SELECT P FROM PS_STDNT_ENRL P WHERE P.psStdntEnrlId.EMPLID=:emplid and P.ENRL_STATUS_REASON = 'ENRL'")
+    List<PS_STDNT_ENRL> getObtenerClasesAnteriores(@Param("emplid") String emplid);
 }
