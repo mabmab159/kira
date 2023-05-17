@@ -166,12 +166,18 @@ public class PS_CLASS_TBL_Service implements PS_CLASS_TBL_DAO {
     }
 
     @Override
-    public <S extends PS_CLASS_TBL, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends PS_CLASS_TBL, R> R findBy(Example<S> example,
+                                                Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return null;
     }
 
     @Override
     public PS_CLASS_TBL getPsClassTbl(String strm, int clase) {
         return psClassTblDao.getPsClassTbl(strm, clase);
+    }
+
+    @Override
+    public List<PS_CLASS_TBL> listadoDeClasesRecomendar(String session_code, String strm) {
+        return psClassTblDao.listadoDeClasesRecomendar(session_code, strm);
     }
 }

@@ -10,6 +10,9 @@ public class PS_CLASS_TBL {
     public int CLASS_NBR;
     public String CAMPUS_EVENT_NBR;
     public String SUBJECT;
+    public String CATALOG_NBR;
     public String INSTITUTION;
     public String ACAD_CAREER;
+    public int ENRL_CAP;
+    public int ENRL_TOT;
 }

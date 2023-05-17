@@ -12,7 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @RestController
@@ -33,25 +35,44 @@ public class newservicio {
     }
 
     @GetMapping("/clase_recomendada/{emplid}")
-    public ResponseEntity<PS_CLASS_TBL> getRecommendation(@PathVariable("emplid") String emplid) {
-        // Recuperamos la ultima clase y la ultima clase aprobada.
+    public ResponseEntity<List<Object>> getRecommendation(
+            @PathVariable("emplid")
+            String emplid) {
         List<PS_STDNT_ENRL> listado = psStdntEnrlService.getObtenerClasesAnteriores(emplid);
         List<PS_STDNT_ENRL> clasesAprobadas =
-                listado.stream().filter(p -> Integer.parseInt(p.CRSE_GRADE_OFF) >= 70).collect(
-                        Collectors.toList());
+                listado.stream().filter(p -> Pattern.matches("[0-9]*", p.CRSE_GRADE_OFF))
+                        .filter(p -> Integer.parseInt(p.CRSE_GRADE_OFF) >= 70).collect(
+                                Collectors.toList());
         PS_STDNT_ENRL ultimaClase = listado.get(listado.size() - 1);
         PS_STDNT_ENRL ultimaClaseAprobada = clasesAprobadas.get(clasesAprobadas.size() - 1);
-        // Recuperar la fecha de la ultima clase aprobada
+        int anioUltimaClase = Integer.parseInt(ultimaClase.psStdntEnrlId.STRM);
+        int mesUltimaClase = (int) (ultimaClase.SESSION_CODE.charAt(0)) - 64;
+        int mesMaximoRecomendar = mesUltimaClase + 5 > 12 ? mesUltimaClase + 5 : mesUltimaClase - 7;
+        int anioMaximoRecomendar = mesUltimaClase + 5 > 12 ? anioUltimaClase + 1 : anioUltimaClase;
+        LocalDate fechaActual = LocalDate.now();
+        String sesionRecomendar = "";
         PS_CLASS_TBL fechaUltimaClaseAprobada = psClassTblService.getPsClassTbl(ultimaClaseAprobada.psStdntEnrlId.STRM,
                 ultimaClaseAprobada.psStdntEnrlId.CLASS_NBR);
-        System.out.println(fechaUltimaClaseAprobada.psClassTblId.SESSION_CODE);
-        return new ResponseEntity<>(fechaUltimaClaseAprobada, HttpStatus.OK);
+        if ((fechaActual.getMonthValue() <= mesMaximoRecomendar && fechaActual.getYear() == anioMaximoRecomendar) ||
+                fechaActual.getYear() <= anioMaximoRecomendar) {
+            sesionRecomendar = (char) (fechaActual.getMonthValue() + 64) + ultimaClase.SESSION_CODE.substring(1);
+            List<String> cursosRecomendar = new ArrayList<>();
+
+        }
+        /*return new ResponseEntity<>(psClassTblService.listadoDeClasesRecomendar(sesionRecomendar,
+                String.valueOf(anioMaximoRecomendar)),
+                HttpStatus.OK);*/
+        return new ResponseEntity<>(psLvfEstCurEquService.test(), HttpStatus.OK);
     }
 
     @GetMapping("/{institution}/{acad_career}/{emplid}")
-    public ResponseEntity<String> getEstado(@PathVariable("institution") String institution,
-                                            @PathVariable("acad_career") String acad_career,
-                                            @PathVariable("emplid") String emplid) {
+    public ResponseEntity<String> getEstado(
+            @PathVariable("institution")
+            String institution,
+            @PathVariable("acad_career")
+            String acad_career,
+            @PathVariable("emplid")
+            String emplid) {
         String rastreo = "";
         String meses_discontinuidad = psLvfParamGenerService.monthsDiscontinuity();
         LocalDate localDate = LocalDate.now();

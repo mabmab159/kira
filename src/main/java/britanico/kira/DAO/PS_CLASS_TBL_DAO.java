@@ -7,8 +7,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface PS_CLASS_TBL_DAO extends JpaRepository<PS_CLASS_TBL, PS_CLASS_TBL_ID> {
     @Query("select p from PS_CLASS_TBL p where p.psClassTblId.STRM = :strm and p.CLASS_NBR = :clase")
     PS_CLASS_TBL getPsClassTbl(@Param("strm") String strm, @Param("clase") int clase);
+
+    @Query("SELECT P FROM PS_CLASS_TBL P WHERE P.psClassTblId.SESSION_CODE=:session_code and P.psClassTblId" +
+            ".STRM=:strm and (P.ENRL_CAP-P.ENRL_TOT)>0")
+    List<PS_CLASS_TBL> listadoDeClasesRecomendar(@Param("session_code") String session_code,
+                                                 @Param("strm") String strm);
 }

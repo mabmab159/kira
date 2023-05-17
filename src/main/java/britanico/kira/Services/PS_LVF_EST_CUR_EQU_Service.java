@@ -4,7 +4,6 @@ import britanico.kira.DAO.PS_LVF_EST_CUR_EQU_DAO;
 import britanico.kira.Models.PS_LVF_EST_CUR_EQU;
 import britanico.kira.Models.PS_LVF_EST_CUR_EQU_ID;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +24,11 @@ public class PS_LVF_EST_CUR_EQU_Service implements PS_LVF_EST_CUR_EQU_DAO {
     @Override
     public List<String> equivalentCourses(String crse_id) {
         return psLvfEstCurEquDao.equivalentCourses(crse_id);
+    }
+
+    @Override
+    public List<Object> test() {
+        return psLvfEstCurEquDao.test();
     }
 
     @Override
