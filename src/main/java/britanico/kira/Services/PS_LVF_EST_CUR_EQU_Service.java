@@ -27,8 +27,8 @@ public class PS_LVF_EST_CUR_EQU_Service implements PS_LVF_EST_CUR_EQU_DAO {
     }
 
     @Override
-    public List<Object> test() {
-        return psLvfEstCurEquDao.test();
+    public List<String> siguienteClase(String sesionAnterior) {
+        return psLvfEstCurEquDao.siguienteClase(sesionAnterior);
     }
 
     @Override
@@ -177,7 +177,8 @@ public class PS_LVF_EST_CUR_EQU_Service implements PS_LVF_EST_CUR_EQU_DAO {
     }
 
     @Override
-    public <S extends PS_LVF_EST_CUR_EQU, R> R findBy(Example<S> example, Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
+    public <S extends PS_LVF_EST_CUR_EQU, R> R findBy(Example<S> example,
+                                                      Function<FluentQuery.FetchableFluentQuery<S>, R> queryFunction) {
         return null;
     }
 }

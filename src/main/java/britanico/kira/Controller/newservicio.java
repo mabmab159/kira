@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -35,7 +36,7 @@ public class newservicio {
     }
 
     @GetMapping("/clase_recomendada/{emplid}")
-    public ResponseEntity<List<Object>> getRecommendation(
+    public ResponseEntity<List<String>> getRecommendation(
             @PathVariable("emplid")
             String emplid) {
         List<PS_STDNT_ENRL> listado = psStdntEnrlService.getObtenerClasesAnteriores(emplid);
@@ -48,21 +49,26 @@ public class newservicio {
         int anioUltimaClase = Integer.parseInt(ultimaClase.psStdntEnrlId.STRM);
         int mesUltimaClase = (int) (ultimaClase.SESSION_CODE.charAt(0)) - 64;
         int mesMaximoRecomendar = mesUltimaClase + 5 > 12 ? mesUltimaClase + 5 : mesUltimaClase - 7;
-        int anioMaximoRecomendar = mesUltimaClase + 5 > 12 ? anioUltimaClase + 1 : anioUltimaClase;
+        int anioRecomendar = mesUltimaClase + 5 > 12 ? anioUltimaClase + 1 : anioUltimaClase;
         LocalDate fechaActual = LocalDate.now();
         String sesionRecomendar = "";
         PS_CLASS_TBL fechaUltimaClaseAprobada = psClassTblService.getPsClassTbl(ultimaClaseAprobada.psStdntEnrlId.STRM,
                 ultimaClaseAprobada.psStdntEnrlId.CLASS_NBR);
-        if ((fechaActual.getMonthValue() <= mesMaximoRecomendar && fechaActual.getYear() == anioMaximoRecomendar) ||
-                fechaActual.getYear() <= anioMaximoRecomendar) {
+        if ((fechaActual.getMonthValue() <= mesMaximoRecomendar && fechaActual.getYear() == anioRecomendar) ||
+                fechaActual.getYear() <= anioRecomendar) {
             sesionRecomendar = (char) (fechaActual.getMonthValue() + 64) + ultimaClase.SESSION_CODE.substring(1);
-            List<String> cursosRecomendar = new ArrayList<>();
-
+            List<String> siguienteClase =
+                    psLvfEstCurEquService.siguienteClase(String.valueOf(fechaUltimaClaseAprobada.psClassTblId.CRSE_ID));
+            System.out.println(siguienteClase);
+            List<PS_CLASS_TBL> cursosRecomendar = psClassTblService.listadoDeClasesRecomendar(sesionRecomendar,
+                    String.valueOf(anioRecomendar));
+            System.out.println(siguienteClase.size());
         }
         /*return new ResponseEntity<>(psClassTblService.listadoDeClasesRecomendar(sesionRecomendar,
                 String.valueOf(anioMaximoRecomendar)),
                 HttpStatus.OK);*/
-        return new ResponseEntity<>(psLvfEstCurEquService.test(), HttpStatus.OK);
+
+        return new ResponseEntity<>(psLvfEstCurEquService.siguienteClase(String.valueOf(fechaUltimaClaseAprobada.psClassTblId.CRSE_ID)), HttpStatus.OK);
     }
 
     @GetMapping("/{institution}/{acad_career}/{emplid}")
