@@ -36,7 +36,7 @@ public class wsmatriculaPRD_Asistencia {
         detalleAsistencias detalleAsistencias = new detalleAsistencias();
         detalleAsistencias.setFechas(Fechas.convertirFecha(psClassAttendnceService.obtenerClases(cod_alumno, strm,
                 clase)));
-        detalleAsistencias.setClase(Clase.convertirClase(psClassTblService.getPsClassTbl(strm, clase),
+        detalleAsistencias.setClase(Clase.convertirClase(psClassTblService.obtenerClase(strm, clase),
                 psClassAttendnceService.obtenerClases(cod_alumno, strm, clase),
                 psClassAttributeService.obtenerClase(strm, clase)));
         return new ResponseEntity<>(detalleAsistencias, HttpStatus.OK);

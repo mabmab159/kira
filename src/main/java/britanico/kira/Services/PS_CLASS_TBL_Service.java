@@ -172,12 +172,12 @@ public class PS_CLASS_TBL_Service implements PS_CLASS_TBL_DAO {
     }
 
     @Override
-    public PS_CLASS_TBL getPsClassTbl(String strm, int clase) {
-        return psClassTblDao.getPsClassTbl(strm, clase);
+    public PS_CLASS_TBL obtenerClase(String strm, int clase) {
+        return psClassTblDao.obtenerClase(strm, clase);
     }
 
     @Override
-    public List<PS_CLASS_TBL> listadoDeClasesRecomendar(String session_code, String strm) {
-        return psClassTblDao.listadoDeClasesRecomendar(session_code, strm);
+    public List<PS_CLASS_TBL> listadoDeClasesRecomendar(String session_code, String strm,List<String> codigoClase) {
+        return psClassTblDao.listadoDeClasesRecomendar(session_code, strm, codigoClase);
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -27,8 +28,8 @@ public class PS_LVF_EST_CUR_EQU_Service implements PS_LVF_EST_CUR_EQU_DAO {
     }
 
     @Override
-    public List<String> siguienteClase(String sesionAnterior) {
-        return psLvfEstCurEquDao.siguienteClase(sesionAnterior);
+    public List<Map<String, String>> siguienteCurso(String sesionAnterior) {
+        return psLvfEstCurEquDao.siguienteCurso(sesionAnterior);
     }
 
     @Override
